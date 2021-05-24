@@ -92,6 +92,7 @@ hr {
     flex-direction: column;
     flex: 1;
     word-wrap: break-word;
+    white-space: pre-wrap;
 }
 
 .command-name {
