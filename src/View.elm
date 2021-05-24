@@ -47,7 +47,7 @@ viewHelpText =
                 |> ul []
 
         setupSteps =
-            [ "start websocket proxy"
+            [ "find an IRCd with an open websocket endpoint"
             , "configure irc connection through 'add server' dialog"
             , """if everything connects correctly, '/server save' to
                  persist the server config to localStorage"""
@@ -59,8 +59,9 @@ viewHelpText =
         div [ id "buffer-view" ]
             [ h1 [] [ text "rain" ]
             , p [] [ text """Minimal browser based IRC client connecting
-                       over a websocket proxy backend.""" ]
-            , p [] (linkifyLine "source: https://github.com/erik/rain")
+                       over the IRCv3 websocket protocol.""" ]
+            , p [] (linkifyLine "source: https://github.com/danopia/rain")
+            , p [] (linkifyLine "forked from: https://github.com/erik/rain")
             , h2 [] [ text "01 setup" ]
             , setupSteps
             , h2 [] [ text "02 supported commands" ]

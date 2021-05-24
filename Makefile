@@ -20,6 +20,6 @@ server:
 proxy:
 	cd wsproxy; npm install; node index.js
 
-# Spin up everything
+# Spin up frontend
 dev:
-	make -j watch server proxy
+	make -j watch server

@@ -53,7 +53,7 @@ hr {
 }
 
 .current-buffer::after {
-    content: " •";
+    content: " \2022";
 }
 
 .clickable {
