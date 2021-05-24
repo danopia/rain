@@ -72,11 +72,8 @@ viewForm : Form () ServerMetadata -> Html Form.Msg
 viewForm form =
     let
         inputs =
-            [ ( Input.textInput, "WebSocket proxy:", "proxyHost", "wss://rain-proxy.example.com/" )
-            , ( Input.passwordInput, "WebSocket proxy password:", "proxyPass", "" )
+            [ ( Input.textInput, "IRC WebSocket URL:", "wsUrl", "wss://irc.unrealircd.org" )
             , ( Input.textInput, "IRC server name:", "name", "freenode" )
-            , ( Input.textInput, "IRC server host:", "server", "irc.freenode.net" )
-            , ( Input.textInput, "IRC server port:", "port_", "6697, (TLS: +6697)" )
             , ( Input.passwordInput, "IRC server password", "pass", "" )
             , ( Input.textInput, "Nick", "nick", "rain`" )
             ]

@@ -25,10 +25,7 @@ serverBufferName =
 
 
 type alias ServerMetadata =
-    { proxyHost : String
-    , proxyPass : Maybe String
-    , server : String
-    , port_ : String -- TODO: make this an int
+    { wsUrl : String
     , nick : String
     , pass : Maybe String
     , name : String
@@ -108,11 +105,8 @@ type alias Model =
 
 newServerValidation : Validation () ServerMetadata
 newServerValidation =
-    map8 ServerMetadata
-        (field "proxyHost" string)
-        (field "proxyPass" <| maybe string)
-        (field "server" string)
-        (field "port_" string)
+    map5 ServerMetadata
+        (field "wsUrl" string)
         (field "nick" string)
         (field "pass" <| maybe string)
         (field "name" string)

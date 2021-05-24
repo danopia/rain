@@ -8,6 +8,27 @@
   <link rel="stylesheet" href="site.css">
   <link rel="shortcut icon" href="icon.png" sizes="128x128" />
 
+  <script>
+    const subprotocols = ['text.ircv3.net']
+    const lastTries = new Map
+    const origWS = WebSocket
+    globalThis.WebSocket = class IrcWebSocket extends origWS {
+      constructor(url) {
+        const lastTry = lastTries.get(url)
+        const thisTry = lastTry ? undefined : subprotocols
+        super(url, thisTry)
+        lastTries.set(url, thisTry)
+        console.log("Connecting to", url, "with subprotocols", thisTry)
+
+        // give elm a helping hand with websocket state events
+        this.addEventListener('open', () => {
+            const evt = new Event('message')
+            evt.data = '*CONNECTED'
+            this.dispatchEvent(evt)
+        })
+      }
+    }
+  </script>
   <script src="main.js"></script>
 </head>
 

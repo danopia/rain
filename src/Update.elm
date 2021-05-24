@@ -3,7 +3,6 @@ module Update exposing (Msg(..), ServerMsg(..), update, commandDescriptions)
 import Debug
 import Dict
 import Form exposing (Form)
-import Http
 import Irc
 import Model exposing (..)
 import Ports
@@ -186,9 +185,6 @@ updateServer server msg model =
                     "*CONNECTED" ->
                         update (modifyServer server ConnectIrc) model
 
-                    "*PONG" ->
-                        model ! []
-
                     _ ->
                         Irc.splitMessage line
                             |> Maybe.map (\msg -> handleCommand server (getTs msg) msg model)
@@ -296,22 +292,12 @@ update msg model =
 
         AddServer meta ->
             let
-                -- We send meta.name to differentiate the query
+                -- TODO: We no longer send meta.name to differentiate the query
                 -- strings so elm opens up multiple websockets
-                queryString =
-                    [ ( "host", meta.server )
-                    , ( "port", meta.port_ )
-                    , ( "proxyPass", meta.proxyPass |> Maybe.withDefault "" )
-                    , ( "name", meta.name )
-                    ]
-                        |> List.map (\( k, v ) -> k ++ "=" ++ Http.encodeUri v)
-                        |> String.join "&"
-
-                socketUrl =
-                    String.concat [ meta.proxyHost, "?", queryString ]
+                -- So you can only have one socket per URL
 
                 server =
-                    { socket = socketUrl
+                    { socket = meta.wsUrl
                     , pass = meta.pass
                     , meta = meta
                     , buffers = Dict.empty

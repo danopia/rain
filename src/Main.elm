@@ -50,7 +50,7 @@ subscriptions model =
                 |> List.map
                     (\serverName ->
                         Time.every (60 * Time.second)
-                            (\_ -> ModifyServer serverName (SendRawLine "*PING"))
+                            (\_ -> ModifyServer serverName (SendRawLine "PING :rain"))
                     )
     in
         Sub.batch
